@@ -55,17 +55,8 @@ const data = {
       url: "#",
       icon: SquareTerminal,
       isActive: true,
-      items: [
-        {
-          title: "Boite de réceptions",
-          url: "#",
-        },
-        {
-          title: "Courriers Envoyés ",
-          url: "#",
-        },
-      ],
     },
+
     {
       title: "Gestion des Utilisateurs",
       url: "#",
@@ -75,26 +66,8 @@ const data = {
     
     {
       title: "Impoter des Fichiers",
-      url: "#",
+      url: "http://localhost:5173/documents", // This is a relative URL
       icon: FileArchive,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
     },
   ],
   projects: [

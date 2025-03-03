@@ -15,7 +15,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 interface Document {
   id: string
   num: number
-  name: string
+  sujet: string
   type: "received(Extr)" | "sent(Extr)" | "sent(Inter)" | "received(Inter)" | "Ministre"
   dateArrive: string
   dateEnregistrer: string
@@ -28,7 +28,7 @@ export default function DocumentManagement() {
     {
       num: 1,
       id: "1",
-      name: "Invoice_001.pdf",
+      sujet: "Invoice_001.pdf",
       type: "received(Extr)",
       dateArrive: "2023-05-15",
       dateEnregistrer: "2023-05-16",
@@ -37,7 +37,7 @@ export default function DocumentManagement() {
     {
       num: 2,
       id: "2",
-      name: "Contract_ABC.pdf",
+      sujet: "Contract_ABC.pdf",
       type: "sent(Extr)",
       dateArrive: "2023-05-10",
       dateEnregistrer: "2023-05-11",
@@ -47,7 +47,7 @@ export default function DocumentManagement() {
     {
       num: 3,
       id: "3",
-      name: "Report_Q1.pdf",
+      sujet: "Report_Q1.pdf",
       type: "sent(Inter)",
       dateArrive: "2023-04-01",
       dateEnregistrer: "2023-04-02",
@@ -56,7 +56,7 @@ export default function DocumentManagement() {
     {
       num: 4,
       id: "4",
-      name: "OldRecord_2022.pdf",
+      sujet: "OldRecord_2022.pdf",
       type: "Ministre",
       dateArrive: "2022-12-31",
       dateEnregistrer: "2023-01-02",
@@ -67,7 +67,7 @@ export default function DocumentManagement() {
   const fileInputRef = useRef<HTMLInputElement>(null)
 
   const [newDocument, setNewDocument] = useState<Omit<Document, "id" | "num">>({
-    name: "",
+    sujet: "",
     type: "received(Extr)",
     dateArrive: "",
     dateEnregistrer: "",
@@ -80,7 +80,7 @@ export default function DocumentManagement() {
     if (file) {
       setNewDocument((prev) => ({
         ...prev,
-        name: file.name,
+        sujet: file.name,
         dateArrive: new Date().toISOString().split("T")[0],
         dateEnregistrer: new Date().toISOString().split("T")[0],
       }))
@@ -99,7 +99,7 @@ export default function DocumentManagement() {
       const result = await scanner.scan()
       setNewDocument((prev) => ({
         ...prev,
-        name: `Scanned_Document_${new Date().toISOString().split("T")[0]}.pdf`,
+        sujet: `Scanned_Document_${new Date().toISOString().split("T")[0]}.pdf`,
         dateArrive: new Date().toISOString().split("T")[0],
         dateEnregistrer: new Date().toISOString().split("T")[0],
       }))
@@ -118,7 +118,7 @@ export default function DocumentManagement() {
     }
     setDocuments([...documents, newDoc])
     setNewDocument({
-      name: "",
+      sujet: "",
       type: "received(Extr)",
       dateArrive: "",
       dateEnregistrer: "",
@@ -129,18 +129,18 @@ export default function DocumentManagement() {
   }
 
   const handleDownload = (document: Document) => {
-    console.log(`Downloading ${document.name}`)
-    toast.success(`Downloading ${document.name}`)
+    console.log(`Downloading ${document.sujet}`)
+    toast.success(`Downloading ${document.sujet}`)
   }
 
   const handleArchive = (document: Document) => {
     setDocuments(documents.map((doc) => (doc.id === document.id ? { ...doc, status: "archivé" } : doc)))
-    toast.success(`${document.name} has been archived`)
+    toast.success(`${document.sujet} has been archived`)
   }
 
   const handleDelete = (document: Document) => {
     setDocuments(documents.filter((doc) => doc.id !== document.id))
-    toast.success(`${document.name} has been deleted`)
+    toast.success(`${document.sujet} has been deleted`)
   }
 
   return (
@@ -163,13 +163,13 @@ export default function DocumentManagement() {
               </DialogHeader>
               <div className="grid gap-4 py-4">
                 <div className="grid grid-cols-4 items-center gap-4">
-                  <Label htmlFor="name" className="text-right">
-                    Name
+                  <Label htmlFor="sujet" className="text-right">
+                    Sujet
                   </Label>
                   <Input
-                    id="name"
-                    value={newDocument.name}
-                    onChange={(e) => setNewDocument({ ...newDocument, name: e.target.value })}
+                    id="sujet"
+                    value={newDocument.sujet}
+                    onChange={(e) => setNewDocument({ ...newDocument, sujet: e.target.value })}
                     className="col-span-3"
                   />
                 </div>
@@ -269,7 +269,7 @@ export default function DocumentManagement() {
             <TableHeader>
               <TableRow>
                 <TableHead>N°de courriers</TableHead>
-                <TableHead>Name</TableHead>
+                <TableHead>Sujet</TableHead>
                 <TableHead>Type</TableHead>
                 <TableHead>Date Arrivé</TableHead>
                 <TableHead>Date Enregistrer</TableHead>
@@ -282,7 +282,7 @@ export default function DocumentManagement() {
               {documents.map((doc) => (
                 <TableRow key={doc.id}>
                   <TableCell>{doc.num}</TableCell>
-                  <TableCell className="font-medium">{doc.name}</TableCell>
+                  <TableCell className="font-medium">{doc.sujet}</TableCell>
                   <TableCell>{doc.type}</TableCell>
                   <TableCell>{doc.dateArrive}</TableCell>
                   <TableCell>{doc.dateEnregistrer}</TableCell>

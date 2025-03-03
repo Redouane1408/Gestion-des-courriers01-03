@@ -3,6 +3,7 @@ import Login from "@/pages/Login";
 import UsersPage from "@/pages/Users";
 import DocumentsPage from "@/pages/Documents"
 import { Routes, Route } from "react-router-dom";
+import ProfilePage from "@/pages/Profile";
 
 
 function AppRoutes() {
@@ -13,6 +14,7 @@ function AppRoutes() {
         <Route path="/dashboard" element={<Page />} />
         <Route path="/users" element={<UsersPage />} />
         <Route path="/documents" element={<DocumentsPage />} />
+        <Route path="/profile" element={<ProfilePage />} />
       </Routes>
     </>
   );
